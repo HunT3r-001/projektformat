@@ -79,6 +79,7 @@ def mainf(ext):
         pass
     elif ext == '.yml' or ext == '.yaml':
         def yml(ex):
+            
             # Otwiera plik YAML i wczytuje dane oraz weryfikuje poprawność składni pliku yml
             with open(ex, "r") as f:
                 try:
@@ -87,6 +88,49 @@ def mainf(ext):
                 except yaml.YAMLError as e:
                     print("Błąd składni pliku YAML:", e)
                     sys.exit()
+
+            if extension2=='.json':
+                # Konwertuj dane YAML na JSON
+                json_data = json.dumps(yaml_data)
+                #zapisujemy dane json do pliku
+                with open(args.y, "w") as f:
+                    json.dump(json_data, f)
+                    print(f'Plik został poprawnie przeformatowany z {extension} na {extension2} i zapisany {args.y}')
+
+            if extension2=='.xml':
+                # Funkcja pomocnicza do tworzenia elementów XML
+                def create_element(name, text=None):
+                    element = ET.Element(name)
+                    element.text = text
+                    return element
+
+                # Funkcja pomocnicza do konwersji danych YAML na elementy XML
+                def yaml_to_xml(yaml_data, parent=None):
+                    if isinstance(yaml_data, dict):
+                        if parent is None:
+                            parent = ET.Element("root")
+                        for key, value in yaml_data.items():
+                            child = create_element(key)
+                            parent.append(child)
+                            yaml_to_xml(value, child)
+                        return parent
+                    elif isinstance(yaml_data, list):
+                        for item in yaml_data:
+                            yaml_to_xml(item, parent)
+                    else:
+                        text = str(yaml_data)
+                        if parent is not None:
+                            parent.text = text
+                        return create_element("value", text)
+
+                # Konwertuj dane YAML na elementy XML
+                xml_data = yaml_to_xml(yaml_data)
+
+                # Zapisz elementy XML do pliku
+                with open(args.y, "wb") as f:
+                    f.write(ET.tostring(xml_data))
+                    print(f'Plik został poprawnie przeformatowany z {extension} na {extension2} i zapisany {args.y}')
+
             return
         yml(args.x)
 
