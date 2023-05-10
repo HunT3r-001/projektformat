@@ -77,8 +77,19 @@ def mainf(ext):
         jsonl(args.x)
     elif ext == '.xml':
         pass
-    elif ext == '.yml':
-        pass
+    elif ext == '.yml' or ext == '.yaml':
+        def yml(ex):
+            # Otwiera plik YAML i wczytuje dane oraz weryfikuje poprawność składni pliku yml
+            with open(ex, "r") as f:
+                try:
+                    yaml_data = yaml.safe_load(f)
+                    print("Plik YAML ma poprawną składnie")
+                except yaml.YAMLError as e:
+                    print("Błąd składni pliku YAML:", e)
+                    sys.exit()
+            return
+        yml(args.x)
+
     else:
         print('Podałeś złe formaty plików')
     return
