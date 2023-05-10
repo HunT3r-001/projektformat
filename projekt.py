@@ -74,6 +74,7 @@ def mainf(ext):
 
             return
         jsonl(args.x)
+
     elif ext == '.xml':
         def xmll(ex):
             # Otworzy plik XML, wczyta dane i sprawdzi poprawność składni pliku xml
@@ -85,6 +86,26 @@ def mainf(ext):
 
             except:
                 print('Błąd składni pliku XML.')
+
+            if extension2=='.json':
+
+                # Konwertuj dane do formatu JSON
+                json_data = json.dumps(xml_str)
+
+                # Zapisujemy obiekt JSON do pliku
+                with open(args.y, 'w') as f:
+                    json.dump(json_data, f)
+                    print(f'Plik został poprawnie przeformatowany z {extension} na {extension2} i zapisany {args.y}')
+
+            if extension2=='.yml' or extension2=='.yaml':
+
+                # Konwersja obiektu XML na słownik Pythona
+                xml_dict = xmltodict.parse(xml_str)
+
+                # Konwersja słownika Pythona na obiekt YAML i zapis do pliku YAML
+                with open(args.y, 'w') as f:
+                    yaml.dump(xml_dict, f)
+                    print(f'Plik został poprawnie przeformatowany z {extension} na {extension2} i zapisany {args.y}')
             return
         xmll(args.x)
 
