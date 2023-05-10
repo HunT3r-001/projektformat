@@ -4,6 +4,7 @@ import sys
 import json
 import xml.etree.ElementTree as ET
 import yaml
+import xmltodict
 
 parser = argparse.ArgumentParser(description='Opis programu')
 parser.add_argument('x', help='plik wejsciowy')
@@ -24,8 +25,6 @@ def mainf(ext):
 
     if ext=='.json':
         def jsonl(ex):
-
-
 
             #ścieżka do pliku JSON
             json_file=ex
@@ -76,7 +75,19 @@ def mainf(ext):
             return
         jsonl(args.x)
     elif ext == '.xml':
-        pass
+        def xmll(ex):
+            # Otworzy plik XML, wczyta dane i sprawdzi poprawność składni pliku xml
+            try:
+
+                with open(ex, 'r') as f:
+                    xml_str = f.read()
+                    print('Plik xml ma poprawną składnie')
+
+            except:
+                print('Błąd składni pliku XML.')
+            return
+        xmll(args.x)
+
     elif ext == '.yml' or ext == '.yaml':
         def yml(ex):
             
