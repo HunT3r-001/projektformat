@@ -2,6 +2,8 @@ import os
 import argparse
 import sys
 import json
+import xml.etree.ElementTree as ET
+import yaml
 
 parser = argparse.ArgumentParser(description='Opis programu')
 parser.add_argument('x', help='plik wejsciowy')
@@ -37,9 +39,39 @@ def mainf(ext):
                 print('Błąd składni JSON:', e)
                 sys.exit()
             else:
-                print('Plik json ma poprawną składnie')
+                print('Plik json ma poprawną składnie\n')
+            if extension2=='.xml':
+                # funkcja rekurencyjnie tworząca elementy XML na podstawie obiektu JSON
+                def create_xml_element(key, value):
+                    element = ET.Element(key)
+                    if isinstance(value, dict):
+                        for k, v in value.items():
+                            element.append(create_xml_element(k, v))
+                    else:
+                        element.text = str(value)
+                    return element
 
+                # utworzenie węzła głównego XML na podstawie obiektu JSON
+                root = ET.Element('root')
+                for key, value in data.items():
+                    root.append(create_xml_element(key, value))
 
+                # utworzenie drzewa XML
+                tree = ET.ElementTree(root)
+
+                # zapisanie drzewa XML do pliku
+                tree.write(args.y, encoding='utf-8', xml_declaration=True)
+                print(f'Plik został poprawnie przeformatowany z {extension} na {extension2} i zapisany {args.y}')
+
+            if extension2=='.yaml' or extension2=='.yml':
+
+                # Konwertuj dane z formatu JSON na YAML
+                yaml_data = yaml.dump(data)
+
+                # Zapisz dane do pliku YAML
+                with open(args.y, "w") as f:
+                    f.write(yaml_data)
+                    print(f'Plik został poprawnie przeformatowany z {extension} na {extension2} i zapisany {args.y}')
 
             return
         jsonl(args.x)
