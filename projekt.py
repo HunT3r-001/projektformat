@@ -19,7 +19,9 @@ extension = os.path.splitext(filename)[1]
 filename2 = args.y
 extension2 = os.path.splitext(filename2)[1]
 
-
+if not os.path.exists(args.x):
+        print('Taka ścieżka do pliku nie istnieje,podaj poprawną')
+        sys.exit()
 
 def mainf(ext):
 
