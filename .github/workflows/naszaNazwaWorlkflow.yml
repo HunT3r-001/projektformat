@@ -37,4 +37,8 @@ jobs:
         with:
           name: projekt
           path: dist/projekt.exe
+          
+      - name: Move executable to dist directory
+        run: |
+          move dist\projekt.exe dist\dist\projekt.exe
       
