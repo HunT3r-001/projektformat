@@ -36,5 +36,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: projekt
-          path: projekt.exe
+          path: dist/projekt.exe
       
