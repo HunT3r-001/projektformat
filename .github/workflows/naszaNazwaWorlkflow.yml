@@ -3,7 +3,7 @@ name: naszaNazwaWorkflow
 on:
   push:
     branches:
-      - master
+      - main
   schedule:
     - cron: "0 0 * * 0" # Uruchamianie raz w tygodniu o północy w niedzielę
   workflow_dispatch:
