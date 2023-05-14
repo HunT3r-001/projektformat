@@ -1,5 +1,0 @@
-dependencies = [
-    'pyinstaller',
-    'pyyaml',
-    'xmltodict'
-]
