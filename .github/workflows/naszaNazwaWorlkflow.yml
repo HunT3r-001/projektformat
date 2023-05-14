@@ -26,14 +26,11 @@ jobs:
           python -m pip install -U pip
           python -m pip install -r .github/workflows/installResources.txt
 
-      - name: Create dist directory
-        run: mkdir dist
 
       - name: Build executable
         shell: powershell
         run: |
           pyinstaller --onefile --windowed projekt.py
-          move .\dist\projekt.exe .\dist\dist\projekt.exe
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
