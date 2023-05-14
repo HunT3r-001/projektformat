@@ -30,7 +30,7 @@ jobs:
       - name: Build executable
         shell: powershell
         run: |
-          pyinstaller --onefile --windowed projekt.py
+          pyinstaller --onefile projekt.py
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
