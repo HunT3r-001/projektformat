@@ -11,8 +11,7 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-    defaults:
-      shell: powershell
+    
 
     steps:
     - name: Checkout code
@@ -28,8 +27,9 @@ jobs:
         python -m pip install -U pip
         python -m pip install -r dependencies.py
 
-    - name: Build executable
-      run: |
+    -name: Build executable
+     shell: powershell
+     run: |
         pyinstaller --onefile --windowed projekty.py
 
     - name: Upload artifact
