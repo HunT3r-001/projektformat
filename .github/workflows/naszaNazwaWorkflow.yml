@@ -30,10 +30,10 @@ jobs:
     -name: Build executable
      shell: powershell
      run: |
-        pyinstaller --onefile --windowed projekty.py
+        pyinstaller --onefile --windowed projekt.py
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
-        name: projekty
-        path: dist/projekty.exe
+        name: projekt
+        path: dist/projekt.exe
