@@ -1,0 +1,3 @@
+pyinstaller
+pyyaml
+xmltodict
