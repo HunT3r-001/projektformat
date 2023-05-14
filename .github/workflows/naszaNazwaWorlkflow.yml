@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install -U pip
-          python -m pip install -r installResources
+          python -m pip install -r installResources.txt
 
 
       - name: Build executable
